@@ -13,6 +13,6 @@
 
 <br>
 
-# Lofi Project
+# Lofi
 
-Project in progress...
+Projeto em andamento...
