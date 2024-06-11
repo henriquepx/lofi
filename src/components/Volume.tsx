@@ -2,7 +2,10 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { FaVolumeUp } from "react-icons/fa";
 
-// Estilo para o contêiner principal do volume
+interface VolumeControlProps {
+    isOpen: boolean;
+  }
+
 const VolumeContainer = styled.div`
   position: absolute;
   width: 30px;
@@ -11,7 +14,6 @@ const VolumeContainer = styled.div`
   bottom: 15px;
 `;
 
-// Estilo para o botão de volume
 const Button = styled.div`
   position: absolute;
   top: 0;
@@ -29,20 +31,19 @@ const Button = styled.div`
   z-index: 999;
 `;
 
-// Estilo para o controle de volume vertical
-const VolumeControl = styled.input.attrs({ type: 'range' })`
+const VolumeControl = styled.input.attrs({ type: 'range' })<VolumeControlProps>`
   -webkit-appearance: none;
   appearance: none;
-  width: 100px; /* Largura do controle, que será a altura do controle vertical */
+  width: 100px; 
   height: 5px;
   position: absolute;
-  left: 50%; /* Centraliza horizontalmente o controle */
-  bottom: 45px; /* Ajusta a posição acima do botão */
-  transform: rotate(-90deg) translateX(-50%); /* Rotaciona o controle e ajusta a posição */
-  transform-origin: bottom left; /* Define o ponto de origem da transformação */
-  background: #333;
+  left: 60%; 
+  bottom: 23px; 
+  transform: rotate(-90deg) translateX(-50%); 
+  transform-origin: bottom left; 
+  background: #ffffff;
   outline: none;
-  opacity: ${(props) => (props.isOpen ? '1' : '0')}; /* Exibe ou oculta baseado no estado */
+  opacity: ${(props) => (props.isOpen ? '1' : '0')}; 
   transition: opacity 0.3s;
   z-index: 998;
   margin-bottom: 4rem;
@@ -50,9 +51,9 @@ const VolumeControl = styled.input.attrs({ type: 'range' })`
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 15px; /* Largura do thumb */
-    height: 15px; /* Altura do thumb */
-    background: #fff;
+    width: 15px; 
+    height: 15px; 
+    background: #222222;
     border-radius: 50%;
     cursor: pointer;
   }
@@ -68,7 +69,7 @@ const VolumeControl = styled.input.attrs({ type: 'range' })`
 
 const Volume = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [volume, setVolume] = useState(50); // Estado para o volume
+  const [volume, setVolume] = useState(50); 
 
   const toggleVolume = () => {
     setIsOpen(!isOpen);

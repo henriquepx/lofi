@@ -36,7 +36,7 @@ const MusicPlayerContainer = styled.div`
   width: 100%;
   background-color: #161616;
   border-top-right-radius: 15px;
-  bottom: 0;
+  bottom: 0px;
   padding: 0rem 1.3rem;
 `;
 

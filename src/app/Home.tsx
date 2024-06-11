@@ -13,7 +13,7 @@ import wallpaper2 from '../assets/wallpaper/agatha.jpg';
 import wallpaper3 from '../assets/wallpaper/upset.jpg';
 import wallpaper4 from '../assets/wallpaper/lonely.gif';
 import wallpaper5 from '../assets/wallpaper/cat.gif';
-import Menu from '../components/Menu';
+// import Menu from '../components/Menu';
 import FloatAction from '../components/FloatAction';
 import Volume from '../components/Volume';
 
@@ -58,7 +58,7 @@ const Home: React.FC = () => {
 
   return (
     <HomeContainer style={{ backgroundImage: `url(${wallpapers[lofiTracks[currentTrackIndex].wallpaperIndex]})` }}>
-      <Menu />
+      {/* <Menu /> */}
       <Volume />
       <Player
         lofiTracks={lofiTracks}
