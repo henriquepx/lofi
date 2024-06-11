@@ -23,11 +23,11 @@ const Button = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #fff;
+  border: 1px solid #575757;
   border-radius: 50%;
   cursor: pointer;
   transition: transform 0.3s;
-  color: #ffffff;
+  color: #000000;
   z-index: 999;
 `;
 

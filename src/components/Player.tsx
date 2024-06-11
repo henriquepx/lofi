@@ -18,14 +18,14 @@ interface PlayerProps {
 const Button = styled.button`
   background: none;
   border: none;
-  color: #ffffff;
+  color: #161616;
   margin: 0 10px;
   font-size: 24px;
   cursor: pointer;
   transition: color 0.3s;
 
   &:hover {
-    color: #11cafd;
+    color: #575757;
   }
 
   &:focus {
@@ -35,10 +35,14 @@ const Button = styled.button`
 
 const MusicPlayerContainer = styled.div`
   position: absolute;
-  width: 100%;
-  background-color: #161616;
-  bottom: 0px;
-  padding: 0rem 1.3rem;
+  background-color: #e0e0e0;
+  bottom: 20px;
+  right: 20px;
+  width: 400px;
+  border-radius: 30px;
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 `;
 
 const MusicContainer = styled.div`
@@ -46,9 +50,13 @@ const MusicContainer = styled.div`
   align-items: center;
   justify-content: center;
   align-content: center;
-
   padding: 10px;
 `;
+
+const ButtonsPlayer = styled.div`
+  border: 1px solid #000000;
+  border-radius: 15px;
+`
 
 const Player: React.FC<PlayerProps> = ({ lofiTracks, onTrackChange, onBackgroundChange }) => {
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
@@ -93,7 +101,7 @@ const Player: React.FC<PlayerProps> = ({ lofiTracks, onTrackChange, onBackground
 
           <Volume />
 
-          <div>
+          <ButtonsPlayer>
             <Button title="Compartilhar">
               <FaShareAlt size={14} />
             </Button>
@@ -109,12 +117,12 @@ const Player: React.FC<PlayerProps> = ({ lofiTracks, onTrackChange, onBackground
             <Button title="Aleatória">
               <FaRandom size={14} />
             </Button>
-          </div>
+          </ButtonsPlayer>
 
           <FloatAction />
 
         </MusicContainer>
-        
+
         <audio ref={audioRef} src={lofiTracks[0].src} />
 
       </MusicPlayerContainer>

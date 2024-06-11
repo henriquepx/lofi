@@ -31,11 +31,11 @@ const lofiTracks: Asset[] = [
 const wallpapers: string[] = [wallpaper5, wallpaper2, wallpaper3, wallpaper4, wallpaper1];
 
 const HomeContainer = styled.div`
-  height: 92vh;
+  height: 97vh;
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  padding: 15px;
+  padding: 25px;
   border-radius: 30px;
   width: 100%;
   display: flex;
