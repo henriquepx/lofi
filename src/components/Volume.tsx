@@ -66,7 +66,7 @@ const VolumeControl = styled.input.attrs({ type: 'range' })<VolumeControlProps>`
     appearance: none;
     width: 15px; 
     height: 15px; 
-    background: #0a0a0a;
+    background: #222222;
     border: 2px solid #fff;
     border-radius: 50%;
     cursor: pointer;
@@ -83,7 +83,7 @@ const VolumeControl = styled.input.attrs({ type: 'range' })<VolumeControlProps>`
 
 const Volume = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [volume, setVolume] = useState(50); 
+  const [volume, setVolume] = useState(100); 
 
   const toggleVolume = () => {
     setIsOpen(!isOpen);
