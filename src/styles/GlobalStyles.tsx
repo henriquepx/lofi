@@ -14,6 +14,12 @@ const GlobalStyles = createGlobalStyle`
     text-decoration: none;
     line-height: 1.5;
   }   
+
+  body {
+    padding: 15px;
+    background-color:#161616;
+    overflow: hidden;
+  }
 `;
 
 export default GlobalStyles;
