@@ -9,10 +9,10 @@ import lofi4 from '../assets/lofis/lofi4.mp3';
 import lofi5 from '../assets/lofis/lofiagatha.mp3';
 
 import wallpaper1 from '../assets/wallpaper/music.gif';
-import wallpaper2 from '../assets/wallpaper/agatha.jpg';
-import wallpaper3 from '../assets/wallpaper/upset.jpg';
+import wallpaper2 from '../assets/wallpaper/study.gif';
+import wallpaper3 from '../assets/wallpaper/sun.gif';
 import wallpaper4 from '../assets/wallpaper/lonely.gif';
-import wallpaper5 from '../assets/wallpaper/cat.gif';
+import wallpaper5 from '../assets/wallpaper/initial.gif';
 // import Menu from '../components/Menu';
 import FloatAction from '../components/FloatAction';
 import Volume from '../components/Volume';

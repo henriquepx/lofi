@@ -1,10 +1,10 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { useState } from 'react';
-import { FaVolumeUp } from "react-icons/fa";
+import { FaVolumeMute, FaVolumeDown, FaVolumeUp } from "react-icons/fa";
 
 interface VolumeControlProps {
-    isOpen: boolean;
-  }
+  isOpen: boolean;
+}
 
 const VolumeContainer = styled.div`
   position: absolute;
@@ -31,6 +31,19 @@ const Button = styled.div`
   z-index: 999;
 `;
 
+const pulse = keyframes`
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+`;
+
+const VolumeIcon = styled.div<{ volume: number }>`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: ${(props) => props.volume === 0 ? pulse : 'none'};
+`;
+
 const VolumeControl = styled.input.attrs({ type: 'range' })<VolumeControlProps>`
   -webkit-appearance: none;
   appearance: none;
@@ -53,7 +66,8 @@ const VolumeControl = styled.input.attrs({ type: 'range' })<VolumeControlProps>`
     appearance: none;
     width: 15px; 
     height: 15px; 
-    background: #222222;
+    background: #0a0a0a;
+    border: 2px solid #fff;
     border-radius: 50%;
     cursor: pointer;
   }
@@ -82,7 +96,11 @@ const Volume = () => {
   return (
     <VolumeContainer>
       <Button onClick={toggleVolume}>
-        <FaVolumeUp size={20} />
+        <VolumeIcon volume={volume}>
+          {volume === 0 && <FaVolumeMute size={20} />}
+          {volume > 0 && volume <= 80 && <FaVolumeDown size={20} />}
+          {volume > 80 && <FaVolumeUp size={20} />}
+        </VolumeIcon>
       </Button>
       <VolumeControl
         isOpen={isOpen}
