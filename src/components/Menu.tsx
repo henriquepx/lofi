@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-
+import { FaCog, FaInfo } from "react-icons/fa";
+import { IoMdColorPalette } from "react-icons/io";
+import AmorImage from '../assets/amor.png';
 interface MenuContentProps {
   isOpen: boolean;
 }
@@ -8,7 +10,7 @@ interface MenuContentProps {
 const MenuContainer = styled.div<MenuContentProps>`
   position: absolute;
   width: 20px;
-  height: 80px;
+  height: 50px;
   right: ${props => props.isOpen ? '200px' : '10px'};
   top: 105px;
   background-color: #eeeeee;
@@ -40,21 +42,33 @@ const MenuContent = styled.div<MenuContentProps>`
   right: ${props => props.isOpen ? '0' : '-250px'};
   top: 105px;
   width: 200px;
-  height: 500px;
+  height: 50px;
   background-color: #eeeeee;
   transition: right 0.3s ease-in-out;
   z-index: 35; 
 
   display: flex;
-  text-align: center;
+  flex-direction: column;
+  text-align: right;
+  padding: .7rem 1.2rem .7rem .3rem;
 `;
 
-const TitleMenu = styled.h1`
-  font-family: 'Roboto Mono', monospace;
-  text-transform: uppercase;
-  font-size: 1rem;
-  font-weight: 700;
+const Amor = styled.img`
+  border-radius: 50%;
+  width: 30px;
+  cursor: pointer;
 `
+const IconContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  svg {
+    color: #000000;
+    margin: 0 10px; 
+    cursor: pointer;
+  }
+`;
 
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -69,9 +83,12 @@ const Menu = () => {
         <PushMenu rotate={isOpen ? '180deg' : '0deg'} />
       </MenuContainer>
       <MenuContent isOpen={isOpen}>
-        <TitleMenu>lofi concentration</TitleMenu>
-
-      
+        <IconContainer>
+            <FaCog size={20} />
+            <IoMdColorPalette size={24} />
+            <FaInfo size={20} />
+            <Amor src={AmorImage} alt="Amor" />
+          </IconContainer>
       </MenuContent>
     </>
   );

@@ -19,7 +19,7 @@ const Button = styled.button`
     font-size: 1rem;
     cursor: pointer;
     transition: color 0.3s;
-    padding: .6rem 1rem .3rem 1rem;
+    padding: .6rem .7rem .3rem .7rem;
     border-bottom-left-radius: 15px;
     &:last-child {
         border-right: 0px;
@@ -31,6 +31,9 @@ const Button = styled.button`
         outline: none;
     }
 `;
+const VolumeButtonControl = styled(Button)`
+  position: relative;
+`
 
 const MusicPlayerContainer = styled.div`
     position: absolute;
@@ -45,17 +48,16 @@ const ButtonsPlayer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0 1.5rem 0 .7rem;
 `;
 
-// Estender o VolumeControl para aceitar props customizadas e aplicar estilos condicionalmente.
 const VolumeControl = styled.input.attrs({ type: 'range' })<{ isVisible: boolean }>`
     position: absolute;
-    bottom: 100%;
-    right: 0;
+    top: -130px;
+    right: 13.5px;
     transform: rotate(-90deg);
     transform-origin: bottom right;
     width: 100px;
-    margin-right: 30px;
     display: ${({ isVisible }) => (isVisible ? 'block' : 'none')};
 `;
 
@@ -120,17 +122,17 @@ const Player: React.FC<PlayerProps> = ({ lofiTracks, onTrackChange, onBackground
                 <Button title="Próxima" onClick={playNextTrack}>
                     <FaForward size={16} />
                 </Button>
-                <Button title="Volume" onClick={toggleVolumeControl}>
-                    <FaVolumeUp size={16} />
-                </Button>
-                <VolumeControl
-                    isVisible={isVolumeControlVisible}
-                    min={0}
-                    max={1}
-                    step={0.01}
-                    value={volume}
-                    onChange={handleVolumeChange}
-                />
+                <VolumeButtonControl title="Volume" onClick={toggleVolumeControl}>
+                  <FaVolumeUp size={16} />
+                  <VolumeControl
+                      isVisible={isVolumeControlVisible}
+                      min={0}
+                      max={1}
+                      step={0.01}
+                      value={volume}
+                      onChange={handleVolumeChange}
+                  />
+                </VolumeButtonControl>
             </ButtonsPlayer>
 
             <audio ref={audioRef} src={lofiTracks[0].src} />
