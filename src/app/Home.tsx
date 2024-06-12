@@ -14,6 +14,7 @@ import wallpaper3 from '../assets/wallpaper/sun.gif';
 import wallpaper4 from '../assets/wallpaper/lonely.gif';
 import wallpaper5 from '../assets/wallpaper/initial.gif';
 // import Menu from '../components/Menu';
+import Volume from '../components/Volume';
 
 interface Asset {
   src: string;
@@ -57,6 +58,7 @@ const Home: React.FC = () => {
   return (
     <HomeContainer style={{ backgroundImage: `url(${wallpapers[lofiTracks[currentTrackIndex].wallpaperIndex]})` }}>
       {/* <Menu /> */}
+      <Volume />
       <Player
         lofiTracks={lofiTracks}
         onTrackChange={handleTrackChange}
