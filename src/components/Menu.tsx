@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { FaCog, FaInfo } from "react-icons/fa";
 import { IoMdColorPalette } from "react-icons/io";
 import AmorImage from '../assets/amor.png';
+
 interface MenuContentProps {
   isOpen: boolean;
 }
@@ -29,12 +30,9 @@ const PushMenu = styled.div<{ rotate?: string }>`
   height: 0;
   border-top: 10px solid transparent; 
   border-bottom: 10px solid transparent;
-  border-right: 10px solid #bbbbbb; 
+  border-right: 10px solid #000000; 
   transition: transform 0.3s ease-in-out;
   transform: rotate(${props => props.rotate || '90deg'});
-  &:hover {
-    border-right: 10px solid #000; 
-  }
 `;
 
 const MenuContent = styled.div<MenuContentProps>`
@@ -57,7 +55,8 @@ const Amor = styled.img`
   border-radius: 50%;
   width: 30px;
   cursor: pointer;
-`
+`;
+
 const IconContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -65,16 +64,53 @@ const IconContainer = styled.div`
   
   svg {
     color: #000000;
-    margin: 0 10px; 
+    margin: 0 10px 10px 10px; 
     cursor: pointer;
   }
 `;
 
+const Dropdown = styled.div`
+  position: absolute;
+  top: 55px; 
+  right: -5px;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10px; 
+    right: 10px;
+    border-width: 0 10px 10px 10px;
+    border-style: solid;
+    border-color: transparent transparent #ffffff transparent;
+  }
+`;
+
+const AdviceAmor = styled.p`
+  font-family: 'Roboto Mono', monospace;
+  font-size: .8rem;
+`
+
+
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  const toggleDropdown = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsDropdownOpen(!isDropdownOpen);
   };
 
   return (
@@ -84,11 +120,19 @@ const Menu = () => {
       </MenuContainer>
       <MenuContent isOpen={isOpen}>
         <IconContainer>
-            <FaCog size={20} />
-            <IoMdColorPalette size={24} />
-            <FaInfo size={20} />
-            <Amor src={AmorImage} alt="Amor" />
-          </IconContainer>
+          <FaCog size={20} />
+          <IoMdColorPalette size={24} />
+          <FaInfo size={20} />
+          <div style={{ position: 'relative' }}>
+            <Amor src={AmorImage} alt="Amor" onClick={toggleDropdown} />
+            {isDropdownOpen && (
+              <Dropdown>
+                <AdviceAmor>acredite em você.</AdviceAmor>
+                <AdviceAmor>te amo</AdviceAmor>
+              </Dropdown>
+            )}
+          </div>
+        </IconContainer>
       </MenuContent>
     </>
   );

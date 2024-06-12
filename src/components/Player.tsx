@@ -15,7 +15,7 @@ interface PlayerProps {
 
 const Button = styled.button`
     background: none;
-    color: #bbbbbb;
+    color: #000000;
     font-size: 1rem;
     cursor: pointer;
     transition: color 0.3s;
