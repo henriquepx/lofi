@@ -1,9 +1,6 @@
 import { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { FaBackward, FaPlay, FaPause, FaForward } from 'react-icons/fa';
-// import FloatAction from './FloatAction';
-// import Volume from './Volume';
-
 interface LofiTrack {
     src: string;
     wallpaperIndex: number;
@@ -16,17 +13,17 @@ interface PlayerProps {
 }
 const Button = styled.button`
   background: none;
-  color: #161616;
+  color: #bbbbbb;
   font-size: 1rem;
   cursor: pointer;
   transition: color 0.3s;
-  border-right: 1px solid #161616;
+  border-right: 1px solid #757575;
   padding: .6rem 1.4rem .3rem 1.4rem;
   &:last-child {
     border-right: 0px;
   }
   &:hover {
-    color: #575757;
+    color: #000000;
   }
   &:focus {
     outline: none;
@@ -34,7 +31,7 @@ const Button = styled.button`
 `;
 const MusicPlayerContainer = styled.div`
   position: absolute;
-  background-color: #e0e0e0;
+  background-color:#eeeeee;
   bottom: 80px;
   right: 0px;
 `;
