@@ -1,34 +1,79 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
-const MenuContainer = styled.div`
+interface MenuContentProps {
+  isOpen: boolean;
+}
+
+const MenuContainer = styled.div<MenuContentProps>`
   position: absolute;
   width: 30px;
   height: 80px;
-  right: 0px;
+  right: ${props => props.isOpen ? '200px' : '0px'};
   top: 105px;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
   background-color: #eeeeee;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
   cursor: pointer;
   display: flex;
   align-items: center; 
   justify-content: center; 
+  transition: right 0.3s ease-in-out;
+  z-index: 10;
 `;
 
-const PushMenu = styled.div`
+const PushMenu = styled.div<{ rotate?: string }>`
   width: 0;
   height: 0;
   border-top: 10px solid transparent; 
   border-bottom: 10px solid transparent;
   border-right: 10px solid #bbbbbb; 
-  transform: translateX(-2px);
+  transition: transform 0.3s ease-in-out;
+  transform: rotate(${props => props.rotate || '90deg'});
+  &:hover {
+    border-right: 10px solid #000; 
+  }
 `;
 
+const MenuContent = styled.div<MenuContentProps>`
+  position: absolute;
+  right: ${props => props.isOpen ? '0' : '-250px'};
+  top: 105px;
+  width: 200px;
+  height: 500px;
+  background-color: #eeeeee;
+  transition: right 0.3s ease-in-out;
+  z-index: 35; 
+
+  display: flex;
+  text-align: center;
+`;
+
+const TitleMenu = styled.h1`
+  font-family: 'Roboto Mono', monospace;
+  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: 700;
+`
+
 const Menu = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <MenuContainer>
-      <PushMenu />
-    </MenuContainer>
+    <>
+      <MenuContainer onClick={toggleMenu} isOpen={isOpen}>
+        <PushMenu rotate={isOpen ? '180deg' : '0deg'} />
+      </MenuContainer>
+      <MenuContent isOpen={isOpen}>
+        <TitleMenu>lofi concentration</TitleMenu>
+
+      
+      </MenuContent>
+    </>
   );
 };
 

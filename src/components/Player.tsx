@@ -17,8 +17,8 @@ const Button = styled.button`
   font-size: 1rem;
   cursor: pointer;
   transition: color 0.3s;
-  border-right: 1px solid #757575;
-  padding: .6rem 1.4rem .3rem 1.4rem;
+  padding: .6rem 1rem .3rem 1rem;
+  border-bottom-left-radius: 15px;
   &:last-child {
     border-right: 0px;
   }
@@ -34,6 +34,8 @@ const MusicPlayerContainer = styled.div`
   background-color:#eeeeee;
   bottom: 80px;
   right: 0px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
 `;
 const ButtonsPlayer = styled.div`
   display: flex;
