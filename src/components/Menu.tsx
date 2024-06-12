@@ -7,9 +7,9 @@ interface MenuContentProps {
 
 const MenuContainer = styled.div<MenuContentProps>`
   position: absolute;
-  width: 30px;
+  width: 20px;
   height: 80px;
-  right: ${props => props.isOpen ? '200px' : '0px'};
+  right: ${props => props.isOpen ? '200px' : '10px'};
   top: 105px;
   background-color: #eeeeee;
   border-top-left-radius: 15px;
