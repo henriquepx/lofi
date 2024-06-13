@@ -20,6 +20,7 @@ import wallpaper5 from '../assets/wallpaper/wpp4.gif';
 import wallpaper6 from '../assets/wallpaper/wpp5.gif';
 import wallpaper7 from '../assets/wallpaper/wpp6.gif';
 import wallpaper8 from '../assets/wallpaper/wpp7.gif';
+import Songs from '../components/Songs';
 
 interface Asset {
   src: string;
@@ -75,6 +76,7 @@ const Home: React.FC = () => {
         onBackgroundChange={handleBackgroundChange}
         themeColor="#eeeeee"
       />
+      <Songs />
     </HomeContainer>
   );
 };

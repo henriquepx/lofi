@@ -8,6 +8,7 @@ const PomodoroContainer = styled.div`
   justify-content: center;
   font-family: 'Roboto Mono', monospace;
   border-radius: 8px;
+  margin: 10px 0;
 `;
 
 const TimerText = styled.div`

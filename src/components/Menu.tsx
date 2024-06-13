@@ -1,4 +1,3 @@
-// Menu.js
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { FaClock, FaInfo, FaLinkedin, FaGithub, FaExternalLinkAlt } from "react-icons/fa";
@@ -82,7 +81,7 @@ const Dropdown = styled.div<BgColor>`
   display: flex;
   flex-direction: column;
   width: 150px;
-
+  z-index: 999;
   &::before {
     content: '';
     position: absolute;
@@ -96,6 +95,7 @@ const Dropdown = styled.div<BgColor>`
 const DropdownStyles = styled(Dropdown)`
   right: 25px;
   top: 63px;
+  z-index: 999;
   &::before {
     content: '';
     position: absolute;
@@ -106,6 +106,7 @@ const DropdownStyles = styled(Dropdown)`
 const DropdownPomodoro = styled(Dropdown)`
   right: 25px;
   top: 63px;
+  z-index: 999;
   &::before {
     content: '';
     position: absolute;
