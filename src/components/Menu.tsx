@@ -1,13 +1,17 @@
 // Menu.js
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
-import { FaCog, FaInfo, FaLinkedin, FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+import { FaClock, FaInfo, FaLinkedin, FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 import { IoMdColorPalette } from "react-icons/io";
 import GlobalStyles from '../styles/GlobalStyles';
 import { BackgroundColorContext } from '../context/BackgroundColorContext'; 
+import PomodoroTimer from './PomodoroTimer';
 
 interface MenuContentProps {
   isOpen: boolean;
+  themeColor: string;
+}
+interface BgColor {
   themeColor: string;
 }
 
@@ -65,11 +69,11 @@ const IconContainer = styled.div`
   }
 `;
 
-const Dropdown = styled.div`
+const Dropdown = styled.div<BgColor>`
   position: absolute;
   top: 50px; 
   right: -10px;
-  background-color: #ffffff;
+  background-color: ${props => props.themeColor};
   border: 1px solid #dddddd;
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -86,10 +90,9 @@ const Dropdown = styled.div`
     right: 10px;
     border-width: 0 10px 10px 10px;
     border-style: solid;
-    border-color: transparent transparent #ffffff transparent;
+    border-color: transparent transparent ${props => props.themeColor} transparent;
   }
 `;
-
 const DropdownStyles = styled(Dropdown)`
   right: 25px;
   top: 63px;
@@ -100,16 +103,23 @@ const DropdownStyles = styled(Dropdown)`
     right: 47px;
   }
 `;
-
+const DropdownPomodoro = styled(Dropdown)`
+  right: 25px;
+  top: 63px;
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10px; 
+    right: 82px;
+  }
+`;
 const AdviceBlock = styled.div`
   margin: 10px 0;
 `
-
 const Advice = styled.p`
   font-family: 'Roboto Mono', monospace;
   font-size: .8rem;
 `;
-
 const SocialLinks = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -173,18 +183,15 @@ const Menu = () => {
       </MenuContainer>
       <MenuContent isOpen={isOpen} themeColor={backgroundColor}>
         <IconContainer>
-          <FaCog size={20} onClick={toggleDropdown('settings')} />
+          <FaClock size={20} onClick={toggleDropdown('settings')} />
           {isSettingsDropdownOpen && (
-            <Dropdown>
-              <AdviceBlock>
-                <Advice>Settings Option 1</Advice>
-                <Advice>Settings Option 2</Advice>
-              </AdviceBlock>
-            </Dropdown>
+            <DropdownPomodoro themeColor={backgroundColor}>
+              <PomodoroTimer />
+            </DropdownPomodoro>
           )}
           <IoMdColorPalette size={24} onClick={toggleDropdown('palette')} />
           {isPaletteDropdownOpen && (
-            <DropdownStyles>
+            <DropdownStyles themeColor={backgroundColor}>
               {colors.map((color) => (
                 <AdviceBlock key={color} onClick={() => handleColorChange(color)} style={{ cursor: 'pointer' }}>
                   <Advice style={{ backgroundColor: color, padding: '5px', borderRadius: '3px' }}>
@@ -197,7 +204,7 @@ const Menu = () => {
           <div style={{ position: 'relative' }}>
             <FaInfo size={20} onClick={toggleDropdown('info')} />
             {isInfoDropdownOpen && (
-              <Dropdown>
+              <Dropdown themeColor={backgroundColor}>
                 <AdviceBlock>
                   <Advice>lofi website 🧘🏼‍♂️</Advice>
                   <Advice>relax and focus</Advice>
