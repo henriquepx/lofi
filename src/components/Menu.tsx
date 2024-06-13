@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+// Menu.js
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { FaCog, FaInfo, FaLinkedin, FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 import { IoMdColorPalette } from "react-icons/io";
+import GlobalStyles from '../styles/GlobalStyles';
+import { BackgroundColorContext } from '../context/BackgroundColorContext'; 
 
 interface MenuContentProps {
   isOpen: boolean;
+  themeColor: string;
 }
 
 const MenuContainer = styled.div<MenuContentProps>`
@@ -13,7 +17,7 @@ const MenuContainer = styled.div<MenuContentProps>`
   height: 50px;
   right: ${props => props.isOpen ? '150px' : '10px'};
   top: 105px;
-  background-color: #eeeeee;
+  background-color: ${props => props.themeColor};
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
   cursor: pointer;
@@ -40,7 +44,7 @@ const MenuContent = styled.div<MenuContentProps>`
   top: 105px;
   width: 150px;
   height: 50px;
-  background-color: #eeeeee;
+  background-color: ${props => props.themeColor};
   transition: right 0.3s ease-in-out;
   z-index: 35; 
 
@@ -63,7 +67,7 @@ const IconContainer = styled.div`
 
 const Dropdown = styled.div`
   position: absolute;
-  top: 55px; 
+  top: 50px; 
   right: -10px;
   background-color: #ffffff;
   border: 1px solid #dddddd;
@@ -86,6 +90,17 @@ const Dropdown = styled.div`
   }
 `;
 
+const DropdownStyles = styled(Dropdown)`
+  right: 25px;
+  top: 63px;
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10px; 
+    right: 47px;
+  }
+`;
+
 const AdviceBlock = styled.div`
   margin: 10px 0;
 `
@@ -103,66 +118,100 @@ const SocialLinks = styled.div`
   padding: 10px 0;
   border-top: 1px solid #dddddd;
   h3 {
-      margin-bottom: .7rem;
-      font-family: 'Roboto Mono', monospace;
-      font-size: .8rem;
-    }
+    margin-bottom: .7rem;
+    font-family: 'Roboto Mono', monospace;
+    font-size: .8rem;
+  }
   a:hover {
     text-decoration: underline;
   }
 `;
+
 const LinksMenuSocialLinks = styled.a`
-    color: #000000; 
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-    font-family: 'Roboto Mono', monospace;
-    font-size: .8rem;
-    gap: 10px;
-`
+  color: #000000; 
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  font-family: 'Roboto Mono', monospace;
+  font-size: .8rem;
+  gap: 10px;
+`;
+
+const colors = ["#eeeeee", "#ffcccc", "#ccffcc", "#ccccff", "#ffffcc"];
 
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isInfoDropdownOpen, setIsInfoDropdownOpen] = useState(false);
+  const [isSettingsDropdownOpen, setIsSettingsDropdownOpen] = useState(false);
+  const [isPaletteDropdownOpen, setIsPaletteDropdownOpen] = useState(false);
+  const { backgroundColor, setBackgroundColor } = useContext(BackgroundColorContext);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+    setIsInfoDropdownOpen(false);
+    setIsSettingsDropdownOpen(false);
+    setIsPaletteDropdownOpen(false);
   };
 
-  const toggleDropdown = (e: React.MouseEvent) => {
+  const toggleDropdown = (type: string) => (e: React.MouseEvent) => {
     e.stopPropagation();
-    setIsDropdownOpen(!isDropdownOpen);
+    setIsInfoDropdownOpen(type === 'info' ? !isInfoDropdownOpen : false);
+    setIsSettingsDropdownOpen(type === 'settings' ? !isSettingsDropdownOpen : false);
+    setIsPaletteDropdownOpen(type === 'palette' ? !isPaletteDropdownOpen : false);
+  };
+
+  const handleColorChange = (color: string) => {
+    setBackgroundColor(color);
+    setIsPaletteDropdownOpen(false);
   };
 
   return (
     <>
-      <MenuContainer onClick={toggleMenu} isOpen={isOpen}>
+      <GlobalStyles backgroundColor={backgroundColor} />
+      <MenuContainer onClick={toggleMenu} isOpen={isOpen} themeColor={backgroundColor}>
         <PushMenu rotate={isOpen ? '180deg' : '0deg'} />
       </MenuContainer>
-      <MenuContent isOpen={isOpen}>
+      <MenuContent isOpen={isOpen} themeColor={backgroundColor}>
         <IconContainer>
-          <FaCog size={20} />
-          <IoMdColorPalette size={24} />
+          <FaCog size={20} onClick={toggleDropdown('settings')} />
+          {isSettingsDropdownOpen && (
+            <Dropdown>
+              <AdviceBlock>
+                <Advice>Settings Option 1</Advice>
+                <Advice>Settings Option 2</Advice>
+              </AdviceBlock>
+            </Dropdown>
+          )}
+          <IoMdColorPalette size={24} onClick={toggleDropdown('palette')} />
+          {isPaletteDropdownOpen && (
+            <DropdownStyles>
+              {colors.map((color) => (
+                <AdviceBlock key={color} onClick={() => handleColorChange(color)} style={{ cursor: 'pointer' }}>
+                  <Advice style={{ backgroundColor: color, padding: '5px', borderRadius: '3px' }}>
+                    {color}
+                  </Advice>
+                </AdviceBlock>
+              ))}
+            </DropdownStyles>
+          )}
           <div style={{ position: 'relative' }}>
-            <FaInfo size={20} onClick={toggleDropdown} />
-            {isDropdownOpen && (
+            <FaInfo size={20} onClick={toggleDropdown('info')} />
+            {isInfoDropdownOpen && (
               <Dropdown>
                 <AdviceBlock>
                   <Advice>lofi website 🧘🏼‍♂️</Advice>
                   <Advice>relax and focus</Advice>
                 </AdviceBlock>
-                
-                
                 <SocialLinks>
                   <h3>follow me: </h3>
-                  <LinksMenuSocialLinks href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer">
-                  LinkedIn<FaLinkedin size={14} />
+                  <LinksMenuSocialLinks href="https://www.linkedin.com/in/henriquepinheiroxavier/" target="_blank" rel="noopener noreferrer">
+                    LinkedIn<FaLinkedin size={14} />
                   </LinksMenuSocialLinks>
-                  <LinksMenuSocialLinks href="https://github.com/yourprofile" target="_blank" rel="noopener noreferrer">
-                   GitHub <FaGithub size={14} /> 
+                  <LinksMenuSocialLinks href="https://github.com/henriquepx" target="_blank" rel="noopener noreferrer">
+                    GitHub<FaGithub size={14} />
                   </LinksMenuSocialLinks>
-                  <LinksMenuSocialLinks href="https://yourportfolio.com" target="_blank" rel="noopener noreferrer">
-                    Portfólio<FaExternalLinkAlt size={14} /> 
+                  <LinksMenuSocialLinks href="https://henriquepx.vercel.app/" target="_blank" rel="noopener noreferrer">
+                    Portfólio<FaExternalLinkAlt size={14} />
                   </LinksMenuSocialLinks>
                 </SocialLinks>
               </Dropdown>

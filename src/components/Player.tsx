@@ -1,16 +1,19 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 import styled from 'styled-components';
 import { FaBackward, FaPlay, FaPause, FaForward, FaVolumeUp } from 'react-icons/fa';
-
+import { BackgroundColorContext } from '../context/BackgroundColorContext'; 
 interface LofiTrack {
     src: string;
     wallpaperIndex: number;
 }
-
+interface MusicPlayerContentProps {
+    themeColor: string;
+}
 interface PlayerProps {
     lofiTracks: LofiTrack[];
     onTrackChange: (trackIndex: number) => void;
     onBackgroundChange: (wallpaperIndex: number) => void;
+    themeColor: string;
 }
 
 const Button = styled.button`
@@ -35,9 +38,9 @@ const VolumeButtonControl = styled(Button)`
   position: relative;
 `
 
-const MusicPlayerContainer = styled.div`
+const MusicPlayerContainer = styled.div<MusicPlayerContentProps>`
     position: absolute;
-    background-color: #eeeeee;
+    background-color: ${props => props.themeColor};
     bottom: 80px;
     right: 0px;
     border-top-left-radius: 15px;
@@ -62,6 +65,9 @@ const VolumeControl = styled.input.attrs({ type: 'range' })<{ isVisible: boolean
 `;
 
 const Player: React.FC<PlayerProps> = ({ lofiTracks, onTrackChange, onBackgroundChange }) => {
+
+    const { backgroundColor } = useContext(BackgroundColorContext);
+
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
     const [volume, setVolume] = useState<number>(0.5);
     const [isVolumeControlVisible, setIsVolumeControlVisible] = useState<boolean>(false);
@@ -111,7 +117,7 @@ const Player: React.FC<PlayerProps> = ({ lofiTracks, onTrackChange, onBackground
     };
 
     return (
-        <MusicPlayerContainer>
+        <MusicPlayerContainer themeColor={backgroundColor}>
             <ButtonsPlayer>
                 <Button title="Voltar" onClick={playPreviousTrack}>
                     <FaBackward size={16} />

@@ -1,6 +1,10 @@
 import { createGlobalStyle } from 'styled-components';
 
-const GlobalStyles = createGlobalStyle`
+interface GlobalStylesProps {
+  backgroundColor: string;
+}
+
+const GlobalStyles = createGlobalStyle<GlobalStylesProps>`
   * {
     margin: 0;
     padding: 0;
@@ -17,7 +21,7 @@ const GlobalStyles = createGlobalStyle`
 
   body {
     padding: 15px;
-    background-color:#eeeeee;
+    background-color: ${props => props.backgroundColor};
     overflow: hidden;
   }
 `;
