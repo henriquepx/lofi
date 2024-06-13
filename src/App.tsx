@@ -1,10 +1,12 @@
 import Home from "./app/Home";
 import GlobalStyles from "./styles/GlobalStyles"; 
 
+const backgroundColor = '#eeeeee';
+
 function App() {
   return (
     <>
-      <GlobalStyles />
+      <GlobalStyles  backgroundColor={backgroundColor} />
       <Home />
     </>
   );
