@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { FaCog, FaInfo } from "react-icons/fa";
+import { FaCog, FaInfo, FaLinkedin, FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 import { IoMdColorPalette } from "react-icons/io";
-import AmorImage from '../assets/amor.png';
 
 interface MenuContentProps {
   isOpen: boolean;
@@ -12,7 +11,7 @@ const MenuContainer = styled.div<MenuContentProps>`
   position: absolute;
   width: 20px;
   height: 50px;
-  right: ${props => props.isOpen ? '200px' : '10px'};
+  right: ${props => props.isOpen ? '150px' : '10px'};
   top: 105px;
   background-color: #eeeeee;
   border-top-left-radius: 15px;
@@ -39,7 +38,7 @@ const MenuContent = styled.div<MenuContentProps>`
   position: absolute;
   right: ${props => props.isOpen ? '0' : '-250px'};
   top: 105px;
-  width: 200px;
+  width: 150px;
   height: 50px;
   background-color: #eeeeee;
   transition: right 0.3s ease-in-out;
@@ -51,20 +50,13 @@ const MenuContent = styled.div<MenuContentProps>`
   padding: .7rem 1.2rem .7rem .3rem;
 `;
 
-const Amor = styled.img`
-  border-radius: 50%;
-  width: 30px;
-  cursor: pointer;
-`;
-
 const IconContainer = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
-  
+  gap: 15px;
+  margin: 2px 10px;
   svg {
     color: #000000;
-    margin: 0 10px 10px 10px; 
     cursor: pointer;
   }
 `;
@@ -72,16 +64,16 @@ const IconContainer = styled.div`
 const Dropdown = styled.div`
   position: absolute;
   top: 55px; 
-  right: -5px;
+  right: -10px;
   background-color: #ffffff;
   border: 1px solid #dddddd;
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px;
+  padding: 5px 15px;
   z-index: 40;
   display: flex;
   flex-direction: column;
-  width: 200px;
+  width: 150px;
 
   &::before {
     content: '';
@@ -94,11 +86,40 @@ const Dropdown = styled.div`
   }
 `;
 
-const AdviceAmor = styled.p`
-  font-family: 'Roboto Mono', monospace;
-  font-size: .8rem;
+const AdviceBlock = styled.div`
+  margin: 10px 0;
 `
 
+const Advice = styled.p`
+  font-family: 'Roboto Mono', monospace;
+  font-size: .8rem;
+`;
+
+const SocialLinks = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  text-align: right;
+  flex-direction: column;
+  padding: 10px 0;
+  border-top: 1px solid #dddddd;
+  h3 {
+      margin-bottom: .7rem;
+      font-family: 'Roboto Mono', monospace;
+      font-size: .8rem;
+    }
+  a:hover {
+    text-decoration: underline;
+  }
+`;
+const LinksMenuSocialLinks = styled.a`
+    color: #000000; 
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    font-family: 'Roboto Mono', monospace;
+    font-size: .8rem;
+    gap: 10px;
+`
 
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -122,13 +143,28 @@ const Menu = () => {
         <IconContainer>
           <FaCog size={20} />
           <IoMdColorPalette size={24} />
-          <FaInfo size={20} />
           <div style={{ position: 'relative' }}>
-            <Amor src={AmorImage} alt="Amor" onClick={toggleDropdown} />
+            <FaInfo size={20} onClick={toggleDropdown} />
             {isDropdownOpen && (
               <Dropdown>
-                <AdviceAmor>acredite em você.</AdviceAmor>
-                <AdviceAmor>te amo</AdviceAmor>
+                <AdviceBlock>
+                  <Advice>lofi website 🧘🏼‍♂️</Advice>
+                  <Advice>relax and focus</Advice>
+                </AdviceBlock>
+                
+                
+                <SocialLinks>
+                  <h3>follow me: </h3>
+                  <LinksMenuSocialLinks href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer">
+                  LinkedIn<FaLinkedin size={14} />
+                  </LinksMenuSocialLinks>
+                  <LinksMenuSocialLinks href="https://github.com/yourprofile" target="_blank" rel="noopener noreferrer">
+                   GitHub <FaGithub size={14} /> 
+                  </LinksMenuSocialLinks>
+                  <LinksMenuSocialLinks href="https://yourportfolio.com" target="_blank" rel="noopener noreferrer">
+                    Portfólio<FaExternalLinkAlt size={14} /> 
+                  </LinksMenuSocialLinks>
+                </SocialLinks>
               </Dropdown>
             )}
           </div>
