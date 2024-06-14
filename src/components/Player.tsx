@@ -1,14 +1,17 @@
-import { useState, useRef, useContext } from 'react';
+import { useState, useRef, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { FaBackward, FaPlay, FaPause, FaForward, FaVolumeUp } from 'react-icons/fa';
 import { BackgroundColorContext } from '../context/BackgroundColorContext'; 
+
 interface LofiTrack {
     src: string;
     wallpaperIndex: number;
 }
+
 interface MusicPlayerContentProps {
     themeColor: string;
 }
+
 interface PlayerProps {
     lofiTracks: LofiTrack[];
     onTrackChange: (trackIndex: number) => void;
@@ -34,9 +37,10 @@ const Button = styled.button`
         outline: none;
     }
 `;
+
 const VolumeButtonControl = styled(Button)`
   position: relative;
-`
+`;
 
 const MusicPlayerContainer = styled.div<MusicPlayerContentProps>`
     position: absolute;
@@ -69,10 +73,16 @@ const Player: React.FC<PlayerProps> = ({ lofiTracks, onTrackChange, onBackground
     const { backgroundColor } = useContext(BackgroundColorContext);
 
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
-    const [volume, setVolume] = useState<number>(0.5);
+    const [volume, setVolume] = useState<number>(0.1); 
     const [isVolumeControlVisible, setIsVolumeControlVisible] = useState<boolean>(false);
     const audioRef = useRef<HTMLAudioElement>(new Audio());
     const currentTrackIndexRef = useRef<number>(0);
+
+    useEffect(() => {
+        if (audioRef.current) {
+            audioRef.current.volume = volume;
+        }
+    }, [volume]);
 
     const togglePlayPause = (): void => {
         if (isPlaying) {
@@ -141,7 +151,7 @@ const Player: React.FC<PlayerProps> = ({ lofiTracks, onTrackChange, onBackground
                 </VolumeButtonControl>
             </ButtonsPlayer>
 
-            <audio ref={audioRef} src={lofiTracks[0].src} />
+            <audio ref={audioRef} loop src={lofiTracks[0].src} />
 
         </MusicPlayerContainer>
     );
