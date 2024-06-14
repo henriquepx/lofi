@@ -20,7 +20,7 @@ const SongsContainer = styled.div<SongsContainerProps>`
   position: absolute;
   width: 35px;
   height: 50px;
-  right: ${props => props.isOpen ? '250px' : '-5px'};
+  right: ${props => props.isOpen ? '220px' : '-5px'};
   top: 170px;
   background-color: ${props => props.themeColor};
   border-top-left-radius: 15px;
@@ -40,8 +40,8 @@ const SongContent = styled.div<SongsContainerProps>`
   position: absolute;
   right: ${props => props.isOpen ? '0px' : '-250px'}; 
   top: 170px;
-  width: 250px; 
-  height: 320px; 
+  width: auto; 
+  height: auto;
   background-color: ${props => props.themeColor};
   transition: right 0.3s ease-in-out; 
   z-index: 5;
@@ -85,6 +85,7 @@ const AudioItem = styled.div`
 const AudioLabel = styled.span`
   margin-left: 10px;
   font-size: 0.8rem;
+  font-family: 'Roboto Mono', monospace;
 `;
 
 const VolumeControl = styled.input.attrs({ type: 'range' })`
