@@ -23,6 +23,7 @@ const GlobalStyles = createGlobalStyle<GlobalStylesProps>`
     padding: 15px;
     background-color: ${props => props.backgroundColor};
     overflow: hidden;
+    height: 100vh;
   }
 `;
 

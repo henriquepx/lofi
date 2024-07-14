@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Player from '../components/Player';
 import Menu from '../components/Menu';
+import Songs from '../components/Songs';
 
 import lofi1 from '../assets/lofis/lofi1.mp3';
 import lofi2 from '../assets/lofis/lofi2.mp3';
@@ -20,7 +21,6 @@ import wallpaper5 from '../assets/wallpaper/wpp4.gif';
 import wallpaper6 from '../assets/wallpaper/wpp5.gif';
 import wallpaper7 from '../assets/wallpaper/wpp6.gif';
 import wallpaper8 from '../assets/wallpaper/wpp7.gif';
-import Songs from '../components/Songs';
 
 interface Asset {
   src: string;
@@ -58,6 +58,8 @@ const HomeContainer = styled.div`
 
 const Home: React.FC = () => {
   const [currentTrackIndex, setCurrentTrackIndex] = useState<number>(0);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [isSongsOpen, setIsSongsOpen] = useState<boolean>(false);
 
   const handleTrackChange = (trackIndex: number): void => {
     setCurrentTrackIndex(trackIndex);
@@ -67,16 +69,32 @@ const Home: React.FC = () => {
     console.log(wallpaperIndex);
   };
 
+  const toggleMenu = (): void => {
+    setIsMenuOpen(!isMenuOpen);
+    if (!isMenuOpen && isSongsOpen) setIsSongsOpen(false); // Fechar Songs ao abrir Menu
+  };
+
+  const toggleSongs = (): void => {
+    setIsSongsOpen(!isSongsOpen);
+    if (!isSongsOpen && isMenuOpen) setIsMenuOpen(false); // Fechar Menu ao abrir Songs
+  };
+
   return (
     <HomeContainer style={{ backgroundImage: `url(${wallpapers[lofiTracks[currentTrackIndex].wallpaperIndex]})` }}>
-      <Menu />
+      <Menu
+        isOpen={isMenuOpen}
+        toggleMenu={toggleMenu}
+      />
       <Player
         lofiTracks={lofiTracks}
         onTrackChange={handleTrackChange}
         onBackgroundChange={handleBackgroundChange}
         themeColor="#eeeeee"
       />
-      <Songs />
+      <Songs
+        isOpen={isSongsOpen}
+        toggleSongs={toggleSongs}
+      />
     </HomeContainer>
   );
 };
