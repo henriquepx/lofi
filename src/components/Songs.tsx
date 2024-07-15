@@ -1,6 +1,6 @@
-import { useState, useContext, useRef, useEffect } from 'react';
+import React, { useState, useRef, useContext, useEffect } from 'react';
 import styled from 'styled-components';
-import { FaMusic, FaFire, FaTree, FaWalking, FaCloudRain, FaUserFriends, FaSubway } from "react-icons/fa";
+import { FaMusic, FaFire, FaWalking, FaTree, FaUserFriends, FaCloudRain, FaSubway } from 'react-icons/fa';
 import GlobalStyles from '../styles/GlobalStyles';
 import { BackgroundColorContext } from '../context/BackgroundColorContext';
 
@@ -11,12 +11,12 @@ import peoplesond from '../assets/audios/people.mp3';
 import rainsound from '../assets/audios/rain.mp3';
 import subwaysond from '../assets/audios/subway.mp3';
 
-interface SongsContainerProps {
+interface SongsProps {
   isOpen: boolean;
-  themeColor: string;
+  toggleSongs: () => void;
 }
 
-const SongsContainer = styled.div<SongsContainerProps>`
+const SongsContainer = styled.div<{ isOpen: boolean; themeColor: string; }>`
   position: absolute;
   width: 35px;
   height: 50px;
@@ -27,30 +27,27 @@ const SongsContainer = styled.div<SongsContainerProps>`
   border-bottom-left-radius: 15px;
   cursor: pointer;
   display: flex;
-  align-items: center; 
-  justify-content: center; 
-  transition: right 0.3s ease-in-out; 
+  align-items: center;
+  justify-content: center;
+  transition: right 0.3s ease-in-out;
   z-index: 5;
-  svg {
-    margin-right: 10px;
-  }
 `;
 
-const SongContent = styled.div<SongsContainerProps>`
+const SongContent = styled.div<{ isOpen: boolean; themeColor: string; }>`
   position: absolute;
-  right: ${props => props.isOpen ? '0px' : '-250px'}; 
+  right: ${props => props.isOpen ? '0px' : '-250px'};
   top: 170px;
-  width: auto; 
+  width: auto;
   height: auto;
   background-color: ${props => props.themeColor};
-  transition: right 0.3s ease-in-out; 
+  transition: right 0.3s ease-in-out;
   z-index: 5;
   border-bottom-left-radius: 15px;
-  padding: 10px; 
+  padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-y: auto; 
+  overflow-y: auto;
 `;
 
 const SongTitle = styled.h3`
@@ -69,17 +66,6 @@ const AudioItem = styled.div`
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  
-  .audio-controls {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-  }
-  
-  .audio-player {
-    display: none; 
-  }
 `;
 
 const AudioLabel = styled.span`
@@ -93,10 +79,9 @@ const VolumeControl = styled.input.attrs({ type: 'range' })`
   width: 100px;
 `;
 
-const Song = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const Songs: React.FC<SongsProps> = ({ isOpen, toggleSongs }) => {
   const { backgroundColor } = useContext(BackgroundColorContext);
-  
+
   const fireAudioRef = useRef<HTMLAudioElement>(null);
   const walkingAudioRef = useRef<HTMLAudioElement>(null);
   const natureAudioRef = useRef<HTMLAudioElement>(null);
@@ -110,10 +95,6 @@ const Song = () => {
   const [peopleVolume, setPeopleVolume] = useState(0);
   const [rainVolume, setRainVolume] = useState(0);
   const [subwayVolume, setSubwayVolume] = useState(0);
-
-  const toggleSongs = () => {
-    setIsOpen(!isOpen);
-  };
 
   useEffect(() => {
     const setVolumeAndPlay = (audioRef: React.RefObject<HTMLAudioElement>, volume: number) => {
@@ -258,4 +239,4 @@ const Song = () => {
   );
 };
 
-export default Song;
+export default Songs;

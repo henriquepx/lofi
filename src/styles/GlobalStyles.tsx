@@ -24,6 +24,7 @@ const GlobalStyles = createGlobalStyle<GlobalStylesProps>`
     background-color: ${props => props.backgroundColor};
     overflow: hidden;
     height: 100vh;
+    width: 100%;
   }
 `;
 

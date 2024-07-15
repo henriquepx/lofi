@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Player from '../components/Player';
-import Menu from '../components/Menu';
+import Menu from '../components/Menu'; 
 import Songs from '../components/Songs';
 
 import lofi1 from '../assets/lofis/lofi1.mp3';
@@ -71,17 +71,17 @@ const Home: React.FC = () => {
 
   const toggleMenu = (): void => {
     setIsMenuOpen(!isMenuOpen);
-    if (!isMenuOpen && isSongsOpen) setIsSongsOpen(false); // Fechar Songs ao abrir Menu
+    if (!isMenuOpen && isSongsOpen) setIsSongsOpen(false);
   };
 
   const toggleSongs = (): void => {
     setIsSongsOpen(!isSongsOpen);
-    if (!isSongsOpen && isMenuOpen) setIsMenuOpen(false); // Fechar Menu ao abrir Songs
+    if (!isSongsOpen && isMenuOpen) setIsMenuOpen(false); 
   };
 
   return (
     <HomeContainer style={{ backgroundImage: `url(${wallpapers[lofiTracks[currentTrackIndex].wallpaperIndex]})` }}>
-      <Menu
+      <Menu 
         isOpen={isMenuOpen}
         toggleMenu={toggleMenu}
       />

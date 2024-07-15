@@ -10,6 +10,12 @@ interface MenuContentProps {
   isOpen: boolean;
   themeColor: string;
 }
+
+interface MenuProps {
+  isOpen: boolean;
+  toggleMenu: () => void;
+}
+
 interface BgColor {
   themeColor: string;
 }
@@ -29,6 +35,7 @@ const MenuContainer = styled.div<MenuContentProps>`
   justify-content: center; 
   transition: right 0.3s ease-in-out;
   z-index: 10;
+  overflow: hidden;
 `;
 
 const PushMenu = styled.div<{ rotate?: string }>`
@@ -49,12 +56,13 @@ const MenuContent = styled.div<MenuContentProps>`
   height: 50px;
   background-color: ${props => props.themeColor};
   transition: right 0.3s ease-in-out;
-  z-index: 35; 
+  z-index: 35;
 
   display: flex;
   flex-direction: column;
   text-align: right;
   padding: .7rem 1.2rem .7rem .3rem;
+  overflow: hidden;
 `;
 
 const IconContainer = styled.div`
@@ -81,46 +89,27 @@ const Dropdown = styled.div<BgColor>`
   display: flex;
   flex-direction: column;
   width: 150px;
-  z-index: 999;
-  &::before {
-    content: '';
-    position: absolute;
-    top: -10px; 
-    right: 10px;
-    border-width: 0 10px 10px 10px;
-    border-style: solid;
-    border-color: transparent transparent ${props => props.themeColor} transparent;
-  }
 `;
+
 const DropdownStyles = styled(Dropdown)`
   right: 25px;
   top: 63px;
-  z-index: 999;
-  &::before {
-    content: '';
-    position: absolute;
-    top: -10px; 
-    right: 47px;
-  }
 `;
+
 const DropdownPomodoro = styled(Dropdown)`
   right: 25px;
   top: 63px;
-  z-index: 999;
-  &::before {
-    content: '';
-    position: absolute;
-    top: -10px; 
-    right: 82px;
-  }
 `;
+
 const AdviceBlock = styled.div`
   margin: 10px 0;
-`
+`;
+
 const Advice = styled.p`
   font-family: 'Roboto Mono', monospace;
   font-size: .8rem;
 `;
+
 const SocialLinks = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -128,14 +117,6 @@ const SocialLinks = styled.div`
   flex-direction: column;
   padding: 10px 0;
   border-top: 1px solid #dddddd;
-  h3 {
-    margin-bottom: .7rem;
-    font-family: 'Roboto Mono', monospace;
-    font-size: .8rem;
-  }
-  a:hover {
-    text-decoration: underline;
-  }
 `;
 
 const LinksMenuSocialLinks = styled.a`
@@ -150,19 +131,11 @@ const LinksMenuSocialLinks = styled.a`
 
 const colors = ["#eeeeee", "#ffcccc", "#ccffcc", "#ccccff", "#ffffcc"];
 
-const Menu = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const Menu: React.FC<MenuProps> = ({ isOpen, toggleMenu }) => {
   const [isInfoDropdownOpen, setIsInfoDropdownOpen] = useState(false);
   const [isSettingsDropdownOpen, setIsSettingsDropdownOpen] = useState(false);
   const [isPaletteDropdownOpen, setIsPaletteDropdownOpen] = useState(false);
   const { backgroundColor, setBackgroundColor } = useContext(BackgroundColorContext);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-    setIsInfoDropdownOpen(false);
-    setIsSettingsDropdownOpen(false);
-    setIsPaletteDropdownOpen(false);
-  };
 
   const toggleDropdown = (type: string) => (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -211,7 +184,6 @@ const Menu = () => {
                   <Advice>relax and focus</Advice>
                 </AdviceBlock>
                 <SocialLinks>
-                  <h3>follow me: </h3>
                   <LinksMenuSocialLinks href="https://www.linkedin.com/in/henriquepinheiroxavier/" target="_blank" rel="noopener noreferrer">
                     LinkedIn<FaLinkedin size={14} />
                   </LinksMenuSocialLinks>
