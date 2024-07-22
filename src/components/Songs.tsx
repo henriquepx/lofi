@@ -31,6 +31,8 @@ const SongsContainer = styled.div<{ isOpen: boolean; themeColor: string; }>`
   justify-content: center;
   transition: right 0.3s ease-in-out;
   z-index: 5;
+  clip: rect(auto, auto, auto, auto); 
+  overflow: hidden;
 `;
 
 const SongContent = styled.div<{ isOpen: boolean; themeColor: string; }>`
