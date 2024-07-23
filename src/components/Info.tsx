@@ -14,7 +14,7 @@ const InfoContainer = styled.div<{ isOpen: boolean; themeColor: string; }>`
   width: 35px;
   height: 50px;
   right: ${props => props.isOpen ? '234px' : '-5px'};
-  bottom: 150px;
+  bottom: 130px;
   background-color: ${props => props.themeColor};
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
@@ -29,7 +29,7 @@ const InfoContainer = styled.div<{ isOpen: boolean; themeColor: string; }>`
 const InfoContent = styled.div<{ isOpen: boolean; themeColor: string; }>`
   position: absolute;
   right: ${props => props.isOpen ? '0px' : '-200px'};
-  bottom: 150px;
+  bottom: 130px;
   width: 235px;
   height: auto;
   background-color: ${props => props.themeColor};
@@ -83,7 +83,6 @@ const Info: React.FC<InfoProps> = ({ isOpen, toggleInfo }) => {
         <FaInfo size={14} />
       </InfoContainer>
       <InfoContent isOpen={isOpen} themeColor={backgroundColor}>
-        <h1>Sobre o Projeto</h1>
         <p>Uma plataforma para relaxar e se concentrar com músicas lo-fi e uma interface simples e personalizada.</p>
         <SocialLinks>
           <a href="https://www.linkedin.com/in/henriquepinheiroxavier/" target="_blank" rel="noopener noreferrer"><FaLinkedin size={14} /> LinkedIn </a>

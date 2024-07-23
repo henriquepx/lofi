@@ -25,7 +25,7 @@ const MenuContainer = styled.div<MenuContentProps>`
   width: 20px;
   height: 50px;
   right: ${props => props.isOpen ? '150px' : '10px'};
-  top: 105px;
+  top: 65px;
   background-color: ${props => props.themeColor};
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
@@ -50,7 +50,7 @@ const PushMenu = styled.div<{ rotate?: string }>`
 const MenuContent = styled.div<MenuContentProps>`
   position: absolute;
   right: ${props => props.isOpen ? '0' : '-250px'};
-  top: 105px;
+  top: 65px;
   width: 150px;
   height: 50px;
   visibility: ${props => props.isOpen ? 'visible' : 'hidden'};

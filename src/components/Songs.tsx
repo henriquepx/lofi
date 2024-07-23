@@ -21,7 +21,7 @@ const SongsContainer = styled.div<{ isOpen: boolean; themeColor: string; }>`
   width: 35px;
   height: 50px;
   right: ${props => props.isOpen ? '220px' : '-5px'};
-  top: 170px;
+  top: 125px;
   background-color: ${props => props.themeColor};
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
@@ -36,7 +36,7 @@ const SongsContainer = styled.div<{ isOpen: boolean; themeColor: string; }>`
 const SongContent = styled.div<{ isOpen: boolean; themeColor: string; }>`
   position: absolute;
   right: ${props => props.isOpen ? '0px' : '-250px'};
-  top: 170px;
+  top: 125px;
   width: auto;
   height: auto;
   background-color: ${props => props.themeColor};
