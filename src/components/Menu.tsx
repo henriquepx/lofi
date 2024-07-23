@@ -53,6 +53,7 @@ const MenuContent = styled.div<MenuContentProps>`
   top: 105px;
   width: 150px;
   height: 50px;
+  visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
   background-color: ${props => props.themeColor};
   transition: right 0.3s ease-in-out;
   z-index: 35;

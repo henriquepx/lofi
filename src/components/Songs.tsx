@@ -40,6 +40,7 @@ const SongContent = styled.div<{ isOpen: boolean; themeColor: string; }>`
   width: auto;
   height: auto;
   background-color: ${props => props.themeColor};
+  visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
   transition: right 0.3s ease-in-out;
   z-index: 5;
   border-bottom-left-radius: 15px;
