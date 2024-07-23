@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Player from '../components/Player';
 import Menu from '../components/Menu'; 
 import Songs from '../components/Songs';
+import Info from '../components/Info';
 
 import lofi1 from '../assets/lofis/lofi1.mp3';
 import lofi2 from '../assets/lofis/lofi2.mp3';
@@ -22,12 +23,7 @@ import wallpaper6 from '../assets/wallpaper/wpp5.gif';
 import wallpaper7 from '../assets/wallpaper/wpp6.gif';
 import wallpaper8 from '../assets/wallpaper/wpp7.gif';
 
-interface Asset {
-  src: string;
-  wallpaperIndex: number;
-}
-
-const lofiTracks: Asset[] = [
+const lofiTracks = [
   { src: lofi5, wallpaperIndex: 0 },
   { src: lofi2, wallpaperIndex: 1 },
   { src: lofi3, wallpaperIndex: 2 },
@@ -38,7 +34,7 @@ const lofiTracks: Asset[] = [
   { src: lofi8, wallpaperIndex: 7 },
 ];
 
-const wallpapers: string[] = [
+const wallpapers = [
   wallpaper1, wallpaper2, wallpaper3, wallpaper4,
   wallpaper5, wallpaper6, wallpaper7, wallpaper8
 ];
@@ -61,6 +57,7 @@ const Home: React.FC = () => {
   const [currentTrackIndex, setCurrentTrackIndex] = useState<number>(0);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isSongsOpen, setIsSongsOpen] = useState<boolean>(false);
+  const [isInfoOpen, setIsInfoOpen] = useState<boolean>(false);
 
   const handleTrackChange = (trackIndex: number): void => {
     setCurrentTrackIndex(trackIndex);
@@ -71,13 +68,33 @@ const Home: React.FC = () => {
   };
 
   const toggleMenu = (): void => {
-    setIsMenuOpen(!isMenuOpen);
-    if (!isMenuOpen && isSongsOpen) setIsSongsOpen(false);
+    if (!isMenuOpen) {
+      setIsMenuOpen(true);
+      setIsSongsOpen(false);
+      setIsInfoOpen(false);
+    } else {
+      setIsMenuOpen(false);
+    }
+  };
+
+  const toggleInfo = (): void => {
+    if (!isInfoOpen) {
+      setIsInfoOpen(true);
+      setIsMenuOpen(false);
+      setIsSongsOpen(false);
+    } else {
+      setIsInfoOpen(false);
+    }
   };
 
   const toggleSongs = (): void => {
-    setIsSongsOpen(!isSongsOpen);
-    if (!isSongsOpen && isMenuOpen) setIsMenuOpen(false); 
+    if (!isSongsOpen) {
+      setIsSongsOpen(true);
+      setIsMenuOpen(false);
+      setIsInfoOpen(false);
+    } else {
+      setIsSongsOpen(false);
+    }
   };
 
   return (
@@ -95,6 +112,10 @@ const Home: React.FC = () => {
       <Songs
         isOpen={isSongsOpen}
         toggleSongs={toggleSongs}
+      />
+      <Info
+        isOpen={isInfoOpen}
+        toggleInfo={toggleInfo}
       />
     </HomeContainer>
   );
