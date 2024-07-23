@@ -35,7 +35,6 @@ const MenuContainer = styled.div<MenuContentProps>`
   justify-content: center; 
   transition: right 0.3s ease-in-out;
   z-index: 10;
-  overflow: hidden;
 `;
 
 const PushMenu = styled.div<{ rotate?: string }>`
@@ -62,7 +61,6 @@ const MenuContent = styled.div<MenuContentProps>`
   flex-direction: column;
   text-align: right;
   padding: .7rem 1.2rem .7rem .3rem;
-  overflow: hidden;
 `;
 
 const IconContainer = styled.div`
